@@ -12,8 +12,11 @@
 -- 3. How many postings are in Tennessee? How many are there in either Tennessee or Kentucky?
 -- SELECT COUNT(location)
 -- FROM data_analyst_jobs
--- WHERE location IN ('TN', 'KY');
--- Answer: 27
+-- WHERE location = 'TN';
+-- SELECT COUNT(location)
+-- FROM data_analyst_jobs
+-- WHERE location IN ('KY', 'TN');
+-- Answer: 21 postings are in Tennessee but there are a combined 27 in Kentucky and Tennessee together.
 
 -- 4. How many postings in Tennessee have a star rating above 4?
 -- SELECT COUNT (star_rating)
@@ -36,9 +39,9 @@
 -- Answer: NE with an average star rating of 4.2
 
 -- 7. Select unique job titles from the data_analyst_jobs table. How many are there?
-SELECT COUNT(DISTINCT(title))
-FROM data_analyst_jobs
-WHERE title IS NOT NULL;
+-- SELECT COUNT(DISTINCT(title))
+-- FROM data_analyst_jobs
+-- WHERE title IS NOT NULL;
 -- Answer: 881 unique job titles
 -- Ask during code walkthrough as Excel result for =COUNTA(UNIQUE(A:A)) was 879
 
@@ -65,3 +68,40 @@ WHERE title IS NOT NULL;
 -- GROUP by company
 -- ORDER by avg_rating DESC;
 -- Answer: 6 companies are tied for the highest rating. They are Unilever, General Motors, Nike, American Express, Microsoft, and Kaiser Permanente. The average rating for these companies is 4.20
+
+-- 11. Find all the job titles that contain the word ‘Analyst’. How many different job titles are there?
+-- SELECT COUNT(DISTINCT title)
+-- FROM data_analyst_jobs
+-- WHERE title iLIKE '%Analyst%';
+-- Answer: There are 774 job titles that contain the word 'Analyst'. This comprises spellings that include variations on the use of capital letters.
+
+-- 12. How many different job titles do not contain either the word ‘Analyst’ or the word ‘Analytics’? What word do these positions have in common?
+-- SELECT COUNT(DISTINCT title)
+-- FROM data_analyst_jobs
+-- WHERE title NOT iLIKE '%Analy%';
+-- SELECT title
+-- FROM data_analyst_jobs
+-- WHERE title NOT iLIKE '%Analy%';
+-- Answer: There are 4 job titles that do not contain either the word 'Analyst' or the word 'Analytics'. All four of the job titles that do not contain 'Analyst' or 'Analytics' contain the word 'Tableau'.
+
+-- BONUS: You want to understand which jobs requiring SQL are hard to fill. Find the number of jobs by industry (domain) that require SQL and have been posted longer than 3 weeks.
+-- Disregard any postings where the domain is NULL.
+-- SELECT COUNT(title)
+-- FROM data_analyst_jobs
+-- WHERE skill iLIKE '%SQL%'
+-- AND days_since_posting > 21
+-- AND domain IS NOT NULL;
+-- Answer A: 403 jobs have been posted that require SQL as a skill and have been posted for longer than 3 weeks.
+
+-- SELECT COUNT(title), domain
+-- FROM data_analyst_jobs
+-- WHERE days_since_posting > 21
+-- AND skill iLIKE '%SQL%'
+-- AND domain IS NOT NULL
+-- GROUP BY domain
+-- ORDER BY COUNT(title) DESC;
+-- Answer B: The top 4 industries with hard to fill jobs are Internet and Software, Banks and Financial Services, Consulting and Business Services, and Health Care. They have the following counts of hard to fill postings that require SQL:
+--- Internet and Software - 62
+--- Banks and Financial Services - 61
+--- Consulting and Business Services - 57
+--- Health Care - 52

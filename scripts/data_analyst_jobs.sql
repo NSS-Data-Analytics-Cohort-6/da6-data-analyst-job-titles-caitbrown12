@@ -13,6 +13,7 @@
 -- SELECT COUNT(location)
 -- FROM data_analyst_jobs
 -- WHERE location = 'TN';
+
 -- SELECT COUNT(location)
 -- FROM data_analyst_jobs
 -- WHERE location IN ('KY', 'TN');
@@ -32,7 +33,7 @@
 -- Answer: 151
 
 -- 6. Show the average star rating for companies in each state. The output should show the state as state and the average rating for the state as avg_rating. Which state shows the highest average rating?
--- SELECT location AS state, AVG(star_rating) AS avg_rating
+-- SELECT location AS state, ROUND(AVG(star_rating),2) AS avg_rating
 -- FROM data_analyst_jobs
 -- GROUP BY state
 -- ORDER by avg_rating DESC;
@@ -43,7 +44,6 @@
 -- FROM data_analyst_jobs
 -- WHERE title IS NOT NULL;
 -- Answer: 881 unique job titles
--- Ask during code walkthrough as Excel result for =COUNTA(UNIQUE(A:A)) was 879
 
 -- 8. How many unique job titles are there for California companies?
 -- SELECT COUNT(DISTINCT(title))
@@ -61,7 +61,7 @@
 -- Answer: 40 companies have more than 5000 reviews across all locations
  
 -- 10. Add the code to order the query in #9 from highest to lowest average star rating. Which company with more than 5000 reviews across all locations in the dataset has the highest star rating? What is that rating?
--- SELECT company, COUNT(company), AVG(star_rating) AS avg_rating
+-- SELECT company, COUNT(company), ROUND(AVG(star_rating),2) AS avg_rating
 -- FROM data_analyst_jobs
 -- WHERE review_count > 5000
 -- 	AND company IS NOT NULL
